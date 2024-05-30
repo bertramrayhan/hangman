@@ -3,16 +3,30 @@ import hangman
 from random import choice
 
 def get_random_word():
-  return choice(words.easy_wordlist)
+  while True:
+    difficulty = input('What diffculty do you want? easy/medium/hard: ').lower()
+    if difficulty not in ['easy', 'medium', 'hard']:
+      print('That is not a choice')
+    else:
+      break
+      
+  if difficulty == 'easy':
+    return choice(words.easy_wordlist)
+  elif difficulty == 'medium':
+    return choice(words.medium_wordlist)
+  else:
+    return choice(words.hard_wordlist)
 
 def draw_hangman(attempt):
   return hangman.hangman_parts[attempt]
   
 
-def main():
-  choosen_word = get_random_word() 
+def main(): 
   print('Welcome to hangman!')
-  print(f'The word has {len(choosen_word)} letters.')
+
+  choosen_word = get_random_word()
+
+  print(f'\nThe word has {len(choosen_word)} letters.')
   print('You have 7 tries to guess the word.')
 
   attempts = 7
@@ -25,6 +39,7 @@ def main():
     print()
     
     guess = input('Guess a letter or the word: ').lower()
+    print()
 
     #if pertama untuk mengatasi input yang salah dan kedua dan ketiga untuk mengatasi tebakan
     #yang salah
